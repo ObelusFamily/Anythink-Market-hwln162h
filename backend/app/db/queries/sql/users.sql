@@ -6,6 +6,7 @@ SELECT id,
        hashed_password,
        bio,
        image,
+       is_verified,
        created_at,
        updated_at
 FROM users
@@ -21,6 +22,7 @@ SELECT id,
        hashed_password,
        bio,
        image,
+       is_verified,
        created_at,
        updated_at
 FROM users
