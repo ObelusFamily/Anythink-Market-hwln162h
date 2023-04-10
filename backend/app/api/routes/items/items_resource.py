@@ -70,13 +70,13 @@ async def create_new_item(
     items_repo: ItemsRepository = Depends(get_repository(ItemsRepository)),
 ) -> ItemInResponse:
     slug = get_slug_for_item(item_create.title)
-    if not item_create.image:
+    if not item_create.image or item_create.image == "":
         response = openai.Image.create(
             prompt=item_create.title,
             size="256x256",
         )
         item_create.image = response['data'][0]['url']
-        
+
     if await check_item_exists(items_repo, slug):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
