@@ -61,12 +61,12 @@ const App = (props) => {
           <Route exact path="/" element={<Home/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/register" element={<Register/>} />
-          <PrivateRoute path="/editor/:slug" component={<Editor/>} />
-          <PrivateRoute path="/editor" component={<Editor/>} />
-          <PrivateRoute path="/item/:id" component={<Item/>} />
-          <PrivateRoute path="/settings" component={<Settings/>} />
-          <PrivateRoute path="/:username/favorites" component={<ProfileFavorites/>} />
-          <PrivateRoute path="/:username" component={<Profile/>} />
+          <Route path="/editor/:slug" element={<PrivateRoute isAuthenticated={!!props.currentUser}><Editor/></PrivateRoute>} />
+          <Route path="/editor" element={<PrivateRoute isAuthenticated={!!props.currentUser}><Editor/></PrivateRoute>} />
+          <Route path="/item/:id" element={<PrivateRoute isAuthenticated={!!props.currentUser}><Item/></PrivateRoute>} />
+          <Route path="/settings" element={<PrivateRoute isAuthenticated={!!props.currentUser}><Settings/></PrivateRoute>} />
+          <Route path="/:username/favorites" element={<PrivateRoute isAuthenticated={!!props.currentUser}><ProfileFavorites/></PrivateRoute>} />
+          <Route path="/:username" element={<PrivateRoute isAuthenticated={!!props.currentUser}><Profile/></PrivateRoute>} />
         </Routes>
       </div>
     );
