@@ -2,6 +2,11 @@ from typing import Optional
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Response
 from starlette import status
+import os
+from dotenv import load_dotenv
+import openai
+
+load_dotenv()
 
 from app.api.dependencies.items import (
     check_item_modification_permissions,
@@ -26,6 +31,8 @@ from app.services.items import check_item_exists, get_slug_for_item
 from app.services.event import send_event
 
 router = APIRouter()
+
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
 @router.get("", response_model=ListOfItemsInResponse, name="items:list-items")
@@ -63,6 +70,12 @@ async def create_new_item(
     items_repo: ItemsRepository = Depends(get_repository(ItemsRepository)),
 ) -> ItemInResponse:
     slug = get_slug_for_item(item_create.title)
+    if not item_create.image:
+        response = openai.Image.create(
+            prompt=item_create.title,
+            size="256x256",
+        )
+        item_create.image = response['data'][0]['url']
     if await check_item_exists(items_repo, slug):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
