@@ -2,9 +2,8 @@ from typing import Optional
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Response
 from starlette import status
-from app.services.openaiservice import get_url_image_openai
+from app.services.openai import get_url_image_openai
 
-load_dotenv()
 
 from app.api.dependencies.items import (
     check_item_modification_permissions,
@@ -30,7 +29,6 @@ from app.services.event import send_event
 
 router = APIRouter()
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
 @router.get("", response_model=ListOfItemsInResponse, name="items:list-items")
