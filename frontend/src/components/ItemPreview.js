@@ -4,8 +4,6 @@ import agent from "../agent";
 import { connect } from "react-redux";
 import { ITEM_FAVORITED, ITEM_UNFAVORITED } from "../constants/actionTypes";
 
-
-
 const mapDispatchToProps = (dispatch) => ({
   favorite: (slug) =>
     dispatch({
@@ -21,7 +19,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 const ItemPreview = (props) => {
   const item = props.item;
-  console.log(item.image);
 
   const handleClick = (ev) => {
     ev.preventDefault();
@@ -32,10 +29,6 @@ const ItemPreview = (props) => {
     }
   };
 
-  const handleImageError = (e) => {
-    e.target.source = "placeholder.png"
-  }
-
   return (
     <div
       className="card bg-dark border-light p-3"
@@ -44,10 +37,9 @@ const ItemPreview = (props) => {
     >
       <img
         alt="item"
-        src={item.image || 'placeholder.png'}
+        src={item.image}
         className="card-img-top item-img"
         style={{ borderRadius: "20px" }}
-        onError={handleImageError}
       />
       <div className="card-body">
         <Link to={`/item/${item.slug}`} className="text-white">
