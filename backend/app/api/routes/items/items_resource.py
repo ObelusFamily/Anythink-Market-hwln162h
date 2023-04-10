@@ -2,9 +2,7 @@ from typing import Optional
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Response
 from starlette import status
-import os
-from dotenv import load_dotenv
-import openai
+from app.services.openaiservice import get_url_image_openai
 
 load_dotenv()
 
@@ -70,18 +68,13 @@ async def create_new_item(
     items_repo: ItemsRepository = Depends(get_repository(ItemsRepository)),
 ) -> ItemInResponse:
     slug = get_slug_for_item(item_create.title)
-    if not item_create.image or item_create.image == "":
-        response = openai.Image.create(
-            prompt=item_create.title,
-            size="256x256",
-        )
-        item_create.image = response['data'][0]['url']
-
     if await check_item_exists(items_repo, slug):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=strings.ITEM_ALREADY_EXISTS,
         )
+    if not item_create.image:
+        item_create.image = get_url_image_openai(item_create.title)
     item = await items_repo.create_item(
         slug=slug,
         title=item_create.title,
