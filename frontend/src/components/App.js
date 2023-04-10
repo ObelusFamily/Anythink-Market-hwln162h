@@ -11,6 +11,7 @@ import Profile from "./Profile";
 import ProfileFavorites from "./ProfileFavorites";
 import Register from "./Register";
 import Settings from "./Settings";
+import PrivateRoute from "./PrivateRoute";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
 const mapStateToProps = (state) => {
@@ -31,6 +32,8 @@ const mapDispatchToProps = (dispatch) => ({
 const App = (props) => {
   const { redirectTo, onRedirect, onLoad } = props;
   const navigate = useNavigate();
+
+  console.log(props.currentUser);
 
   useEffect(() => {
     if (redirectTo) {
@@ -58,12 +61,12 @@ const App = (props) => {
           <Route exact path="/" element={<Home/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/register" element={<Register/>} />
-          <Route path="/editor/:slug" element={<Editor/>} />
-          <Route path="/editor" element={<Editor/>} />
-          <Route path="/item/:id" element={<Item/>} />
-          <Route path="/settings" element={<Settings/>} />
-          <Route path="/:username/favorites" element={<ProfileFavorites/>} />
-          <Route path="/:username" element={<Profile/>} />
+          <PrivateRoute path="/editor/:slug" component={<Editor/>} />
+          <PrivateRoute path="/editor" component={<Editor/>} />
+          <PrivateRoute path="/item/:id" component={<Item/>} />
+          <PrivateRoute path="/settings" component={<Settings/>} />
+          <PrivateRoute path="/:username/favorites" component={<ProfileFavorites/>} />
+          <PrivateRoute path="/:username" component={<Profile/>} />
         </Routes>
       </div>
     );
