@@ -12,7 +12,7 @@ import ProfileFavorites from "./ProfileFavorites";
 import Register from "./Register";
 import Settings from "./Settings";
 import PrivateRoute from "./PrivateRoute";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 
 const mapStateToProps = (state) => {
   return {
@@ -31,14 +31,14 @@ const mapDispatchToProps = (dispatch) => ({
 
 const App = (props) => {
   const { redirectTo, onRedirect, onLoad } = props;
-  const navigate = useNavigate();
+  const history = useHistory();
 
   useEffect(() => {
     if (redirectTo) {
-      navigate(redirectTo);
+      history.push(redirectTo);
       onRedirect();
     }
-  }, [redirectTo, onRedirect, navigate]);
+  }, [redirectTo, onRedirect, history]);
 
   useEffect(() => {
     const token = window.localStorage.getItem("jwt");
@@ -55,17 +55,17 @@ const App = (props) => {
           appName={props.appName}
           currentUser={props.currentUser}
         />
-        <Routes>
+        <Switch>
           <Route exact path="/" element={<Home/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/register" element={<Register/>} />
-          <PrivateRoute path="/editor/:slug" component={<Editor/>} />
-          <PrivateRoute path="/editor" component={<Editor/>} />
-          <PrivateRoute path="/item/:id" component={<Item/>} />
-          <PrivateRoute path="/settings" component={<Settings/>} />
-          <PrivateRoute path="/:username/favorites" component={<ProfileFavorites/>} />
-          <PrivateRoute path="/:username" component={<Profile/>} />
-        </Routes>
+          <PrivateRoute path="/editor/:slug"><Editor/></PrivateRoute>
+          <PrivateRoute path="/editor"><Editor/></PrivateRoute>
+          <PrivateRoute path="/item/:id"><Item/></PrivateRoute>
+          <PrivateRoute path="/settings"><Settings/></PrivateRoute>
+          <PrivateRoute path="/:username/favorites"><ProfileFavorites/></PrivateRoute>
+          <PrivateRoute path="/:username"><Profile/></PrivateRoute>
+        </Switch>
       </div>
     );
   }

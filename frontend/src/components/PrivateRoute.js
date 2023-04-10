@@ -1,12 +1,21 @@
 // PrivateRoute.js
 import React from 'react';
-import { Route, Navigate } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
-const PrivateRoute = ({ component: Component, currentUser, ...rest }) => {
-  return currentUser ? (
-    <Route {...rest} element={<Component />} />
-  ) : (
-    <Navigate to="/login" replace />
+const PrivateRoute = ({ children, currentUser, ...rest }) => {
+  return (
+    <Route {...rest} render={({ location }) =>
+    currentUser ? (
+      children
+    ) : (
+      <Redirect
+        to={{
+          pathname: "/login",
+          state: { from: location }
+        }}
+      />
+    )
+  } />
   );
 };
 
