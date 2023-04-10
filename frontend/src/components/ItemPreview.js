@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import agent from "../agent";
 import { connect } from "react-redux";
 import { ITEM_FAVORITED, ITEM_UNFAVORITED } from "../constants/actionTypes";
+import { ReactComponent as Verified } from '../imgs/verified_seller.svg';
 
 const mapDispatchToProps = (dispatch) => ({
   favorite: (slug) =>
@@ -19,6 +20,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const ItemPreview = (props) => {
   const item = props.item;
+  console.log('item', item)
 
   const handleClick = (ev) => {
     ev.preventDefault();
@@ -28,6 +30,11 @@ const ItemPreview = (props) => {
       props.favorite(item.slug);
     }
   };
+
+  const verifiedTextStyle = {
+    display: 'inline',
+    whiteSpace: 'nowrap',
+  }
 
   return (
     <div
@@ -54,6 +61,7 @@ const ItemPreview = (props) => {
               className="user-pic rounded-circle pr-1"
             />
           </Link>
+          {item.seller.isVerified && <div className="d-flex flex-row"><Verified /> <span style={verifiedTextStyle}>TOP SELLER</span></div>}
           <button className="btn btn-outline-secondary" onClick={handleClick}>
             <i className="ion-heart"></i> {item.favoritesCount}
           </button>
