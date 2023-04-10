@@ -5,7 +5,7 @@ import { Route, Redirect } from 'react-router-dom';
 const PrivateRoute = ({ children, currentUser, ...rest }) => {
   return (
     <Route {...rest} render={({ location }) =>
-    currentUser ? (
+    currentUser !== null ? (
       children
     ) : (
       <Redirect
