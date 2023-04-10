@@ -76,6 +76,7 @@ async def create_new_item(
             size="256x256",
         )
         item_create.image = response['data'][0]['url']
+        
     if await check_item_exists(items_repo, slug):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
