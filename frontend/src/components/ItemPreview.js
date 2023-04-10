@@ -29,11 +29,6 @@ const ItemPreview = (props) => {
     }
   };
 
-  const verifiedTextStyle = {
-    display: 'inline',
-    whiteSpace: 'nowrap',
-  }
-
   return (
     <div
       className="card bg-dark border-light p-3"
@@ -59,7 +54,6 @@ const ItemPreview = (props) => {
               className="user-pic rounded-circle pr-1"
             />
           </Link>
-          {item.seller.isVerified && <div className="d-flex flex-row"><img src={'verified_seller.svg'} alt={'verified seller'}/> <span style={verifiedTextStyle}>TOP SELLER</span></div>}
           <button className="btn btn-outline-secondary" onClick={handleClick}>
             <i className="ion-heart"></i> {item.favoritesCount}
           </button>
