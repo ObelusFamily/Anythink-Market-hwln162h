@@ -56,15 +56,15 @@ const App = (props) => {
           currentUser={props.currentUser}
         />
         <Switch>
-          <Route exact path="/" element={<Home/>} />
-          <Route path="/login" element={<Login/>} />
-          <Route path="/register" element={<Register/>} />
-          <PrivateRoute path="/editor/:slug"><Editor/></PrivateRoute>
-          <PrivateRoute path="/editor"><Editor/></PrivateRoute>
-          <PrivateRoute path="/item/:id"><Item/></PrivateRoute>
-          <PrivateRoute path="/settings"><Settings/></PrivateRoute>
-          <PrivateRoute path="/:username/favorites"><ProfileFavorites/></PrivateRoute>
-          <PrivateRoute path="/:username"><Profile/></PrivateRoute>
+          <Route exact path="/"><Home/></Route>
+          <Route path="/login"><Login/></Route>
+          <Route path="/register"><Register/></Route>
+          <PrivateRoute currentUser={props.currentUser} path="/editor/:slug"><Editor/></PrivateRoute>
+          <PrivateRoute currentUser={props.currentUser} path="/editor"><Editor/></PrivateRoute>
+          <PrivateRoute currentUser={props.currentUser} path="/item/:id"><Item/></PrivateRoute>
+          <PrivateRoute currentUser={props.currentUser} path="/settings"><Settings/></PrivateRoute>
+          <PrivateRoute currentUser={props.currentUser} path="/:username/favorites"><ProfileFavorites/></PrivateRoute>
+          <PrivateRoute currentUser={props.currentUser} path="/:username"><Profile/></PrivateRoute>
         </Switch>
       </div>
     );
