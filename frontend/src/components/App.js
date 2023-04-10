@@ -33,8 +33,6 @@ const App = (props) => {
   const { redirectTo, onRedirect, onLoad } = props;
   const navigate = useNavigate();
 
-  console.log(props.currentUser);
-
   useEffect(() => {
     if (redirectTo) {
       navigate(redirectTo);
