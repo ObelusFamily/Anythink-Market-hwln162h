@@ -108,5 +108,3 @@ venv.bak/
 
 # Project
 postgres-data
-
-docker-compose.yml

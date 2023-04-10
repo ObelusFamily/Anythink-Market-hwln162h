@@ -30,5 +30,3 @@ yarn-error.log*
 
 #IDEs
 /.idea/
-
-docker-compose.yml
