@@ -216,7 +216,7 @@ class ItemsRepository(BaseRepository):  # noqa: WPS214
 
             # fmt: off
             query = query.where(
-                items.title.ilike(f"%{title}%"),
+                items.title.ilike(Parameter(query_params_count)),
             )
             # fmt: on
 
