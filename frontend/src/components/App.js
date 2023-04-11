@@ -11,8 +11,7 @@ import Profile from "./Profile";
 import ProfileFavorites from "./ProfileFavorites";
 import Register from "./Register";
 import Settings from "./Settings";
-import PrivateRoute from "./PrivateRoute";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 const mapStateToProps = (state) => {
   return {
@@ -31,15 +30,14 @@ const mapDispatchToProps = (dispatch) => ({
 
 const App = (props) => {
   const { redirectTo, onRedirect, onLoad } = props;
-  const history = useHistory();
-  
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (redirectTo) {
-      history.push(redirectTo);
+      navigate(redirectTo);
       onRedirect();
     }
-  }, [redirectTo, onRedirect, history]);
+  }, [redirectTo, onRedirect, navigate]);
 
   useEffect(() => {
     const token = window.localStorage.getItem("jwt");
@@ -56,17 +54,17 @@ const App = (props) => {
           appName={props.appName}
           currentUser={props.currentUser}
         />
-        <Switch>
-          <Route exact path="/" component={Home}/>
-          <Route path="/login" component={Login}/>
-          <Route path="/register" component={Register}/>
-          <PrivateRoute currentUser={props.currentUser} component={Editor} path="/editor/:slug"/>
-          <PrivateRoute currentUser={props.currentUser} component={Editor} path="/editor"/>
-          <PrivateRoute currentUser={props.currentUser} component={Item} path="/item/:id"/>
-          <PrivateRoute currentUser={props.currentUser} component={Settings} path="/settings"/>
-          <PrivateRoute currentUser={props.currentUser} component={ProfileFavorites} path="/:username/favorites"/>
-          <PrivateRoute currentUser={props.currentUser} component={Profile} path="/:username"/>
-        </Switch>
+        <Routes>
+          <Route exact path="/" element={<Home/>} />
+          <Route path="/login" element={<Login/>} />
+          <Route path="/register" element={<Register/>} />
+          <Route path="/editor/:slug" element={<Editor/>} />
+          <Route path="/editor" element={<Editor/>} />
+          <Route path="/item/:id" element={<Item/>} />
+          <Route path="/settings" element={<Settings/>} />
+          <Route path="/:username/favorites" element={<ProfileFavorites/>} />
+          <Route path="/:username" element={<Profile/>} />
+        </Routes>
       </div>
     );
   }
