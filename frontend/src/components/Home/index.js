@@ -39,6 +39,17 @@ const Home = ({onLoad, onUnload, tags, onClickTag}) => {
     return onUnload;
   }, [onLoad, onUnload, tab, itemsPromise]);
 
+  const handleSearch = (searchTerm) => {
+    if (searchTerm) {
+      const filtered = items.filter((item) =>
+        item.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredItems(filtered);
+    } else {
+      setFilteredItems(items);
+    }
+  };
+
     return (
       <div className="home-page">
         <Banner />
