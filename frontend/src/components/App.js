@@ -32,6 +32,7 @@ const mapDispatchToProps = (dispatch) => ({
 const App = (props) => {
   const { redirectTo, onRedirect, onLoad } = props;
   const history = useHistory();
+  
 
   useEffect(() => {
     if (redirectTo) {
