@@ -119,6 +119,7 @@ class ItemsRepository(BaseRepository):  # noqa: WPS214
         limit: int = 20,
         offset: int = 0,
         requested_user: Optional[User] = None,
+        title: Optional[str] = None,
     ) -> List[Item]:
         query_params: List[Union[str, int]] = []
         query_params_count = 0
@@ -206,6 +207,16 @@ class ItemsRepository(BaseRepository):  # noqa: WPS214
                         users.id,
                     )
                 ),
+            )
+            # fmt: on
+
+        if title:
+            query_params.append(f'%{title}%')
+            query_params_count += 1
+
+            # fmt: off
+            query = query.where(
+                items.title.ilike(Parameter(query_params_count)),
             )
             # fmt: on
 
