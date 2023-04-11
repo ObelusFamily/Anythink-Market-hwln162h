@@ -56,15 +56,15 @@ const App = (props) => {
           currentUser={props.currentUser}
         />
         <Switch>
-          <Route exact path="/"><Home/></Route>
-          <Route path="/login"><Login/></Route>
-          <Route path="/register"><Register/></Route>
-          <PrivateRoute currentUser={props.currentUser} path="/editor/:slug"><Editor/></PrivateRoute>
-          <PrivateRoute currentUser={props.currentUser} path="/editor"><Editor/></PrivateRoute>
-          <PrivateRoute currentUser={props.currentUser} path="/item/:id"><Item/></PrivateRoute>
-          <PrivateRoute currentUser={props.currentUser} path="/settings"><Settings/></PrivateRoute>
-          <PrivateRoute currentUser={props.currentUser} path="/:username/favorites"><ProfileFavorites/></PrivateRoute>
-          <PrivateRoute currentUser={props.currentUser} path="/:username"><Profile/></PrivateRoute>
+          <Route exact path="/" component={Home}/>
+          <Route path="/login" component={Login}/>
+          <Route path="/register" component={Register}/>
+          <PrivateRoute currentUser={props.currentUser} component={Editor} path="/editor/:slug"/>
+          <PrivateRoute currentUser={props.currentUser} component={Editor} path="/editor"/>
+          <PrivateRoute currentUser={props.currentUser} component={Item} path="/item/:id"/>
+          <PrivateRoute currentUser={props.currentUser} component={Settings} path="/settings"/>
+          <PrivateRoute currentUser={props.currentUser} component={ProfileFavorites} path="/:username/favorites"/>
+          <PrivateRoute currentUser={props.currentUser} component={Profile} path="/:username"/>
         </Switch>
       </div>
     );
