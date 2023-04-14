@@ -14,13 +14,20 @@ const ItemList = (props) => {
   return (
     <div className="container py-2">
       <div className="row">
-        {props.items.map((item) => {
+        {filteredItems.length === 0 && searchPerformed ? (
+        <div id="empty">
+          <h4>
+            We're sorry, but we couldn't find any matching products. Please try
+            another search term.
+          </h4>
+        </div>
+        ) : (props.items.map((item) => {
           return (
             <div className="col-sm-4 pb-2" key={item.slug}>
               <ItemPreview item={item} />
             </div>
           );
-        })}
+        }))}
       </div>
 
       <ListPagination

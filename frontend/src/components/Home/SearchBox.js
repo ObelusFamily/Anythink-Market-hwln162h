@@ -1,16 +1,16 @@
 // SearchBox.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const SearchBox = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
-//   useEffect(() => {
-//     if (searchTerm.length >= 3) {
-//       onSearch(searchTerm);
-//     } else {
-//       onSearch('');
-//     }
-//   }, [searchTerm, onSearch]);
+  useEffect(() => {
+    if (searchTerm.length >= 3) {
+      onSearch(searchTerm);
+    } else {
+      onSearch('');
+    }
+  }, [searchTerm, onSearch]);
 
   return (
     <form>
