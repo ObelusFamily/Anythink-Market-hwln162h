@@ -14,7 +14,7 @@ const ItemList = (props) => {
   return (
     <div className="container py-2">
       <div className="row">
-        {filteredItems.length === 0 && searchPerformed ? (
+        {props.itemsCount === 0 && props.searchPerformed ? (
         <div id="empty">
           <h4>
             We're sorry, but we couldn't find any matching products. Please try
